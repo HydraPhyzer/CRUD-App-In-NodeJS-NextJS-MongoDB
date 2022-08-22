@@ -9,6 +9,7 @@ export default function Document() {
           rel="stylesheet"
         />
         <link rel="shortcut icon" href="Favicon.png" type="image/x-icon" />
+        <title>Home</title>
       </Head>
       <body>
         <Main />
