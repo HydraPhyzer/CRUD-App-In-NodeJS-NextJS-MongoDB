@@ -35,5 +35,20 @@ App.delete('/delete/:_id' , async(Req,Res)=>
     let Data=await Product.deleteOne(Req.params)
     Res.send(Data)
 })
-
+App.put('/update/:_id' , async(Req,Res)=>
+{
+    let Data=await Product.updateOne(
+        Req.params
+        ,
+        {
+            $set:Req.body
+        }
+    )
+    Res.send(Data)
+})
+App.get('/single/:_id' , async(Req,Res)=>
+{
+    let Data=await Product.findOne(Req.params)
+    Res.send(Data)
+})
 App.listen(4500)

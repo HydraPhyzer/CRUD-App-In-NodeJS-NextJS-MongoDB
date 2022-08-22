@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 export default function Home() {
@@ -21,7 +22,9 @@ export default function Home() {
   return (
     <>
       <Header />
+      
       <div className="flex justify-center items-center min-h-[80vh] flex-col">
+        {Products.length>0 ?
         <table>
           <thead>
             <tr className="flex space-x-2">
@@ -42,12 +45,14 @@ export default function Home() {
                     {Each.PPrice}
                   </td>
                   <td className="border-2 border-green-500 p-1 text-black w-full">
-                    <button className="p-1 m-0 mx-1 bg-yellow-500">Edit</button>
+                    <Link href={`/update/${Each._id}`}>
+                      <button className="p-1 m-0 mx-1 rounded-none bg-yellow-500">Edit</button>
+                    </Link>
                     <button
                       onClick={() => {
                         Delete(Each._id);
                       }}
-                      className="p-1 m-0 mx-1 bg-red-500"
+                      className="p-1 m-0 mx-1 bg-red-500 rounded-none"
                     >
                       Delete
                     </button>
@@ -57,6 +62,8 @@ export default function Home() {
             })}
           </tbody>
         </table>
+          :
+          <p>No Products to Display</p>}
       </div>
     </>
   );
