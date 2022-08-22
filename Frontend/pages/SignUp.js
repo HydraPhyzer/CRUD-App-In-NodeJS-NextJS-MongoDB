@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
+import Header from '../Components/Header'
 
 const SignUp = () => {
   let [Name,setName]=useState()
@@ -29,6 +30,8 @@ const SignUp = () => {
     }
   }
   return (
+    <>
+    <Header/>
     <div className="flex flex-col sn:min-h-[90vh] min-h-[80vh] w-full justify-center items-center">
       <div className="px-2 flex flex-col w-max justify-center items-center">
         <p className="my-5 bg-[#9b59b6] text-white w-full text-center py-2">SignUp</p>
@@ -38,6 +41,7 @@ const SignUp = () => {
         <button onClick={()=>{SignUp()}} >Sign Up</button>
       </div>
     </div>
+    </>
   )
 }
 
