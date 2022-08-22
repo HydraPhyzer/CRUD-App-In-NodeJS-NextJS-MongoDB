@@ -11,7 +11,9 @@ const Header = () => {
   return (
     <div className="flex justify-between bg-[#34495e] text-[#ecf0f1] p-3">
       <div className="Left flex list-none space-x-3">
-        <li>Products</li>
+        <Link href="/">
+          <li>Products</li>
+        </Link>
         <Link href="/add-product">
           <li>Add Product</li>
         </Link>

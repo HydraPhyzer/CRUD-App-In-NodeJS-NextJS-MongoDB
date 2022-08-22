@@ -4,7 +4,7 @@ let App=Express();
 let Model=require('./DB/User')
 let Product=require('./DB/Products')
 let Cors=require('cors');
-const { Mongoose } = require('mongoose');
+let Mongo=require('mongoose')
 App.use(Express.json());
 App.use(Cors())
 
@@ -24,6 +24,16 @@ App.post("/add-product" , async (Req,Res)=>
     let Data=new Product(Req.body);
     let Result=await Data.save();
     Res.send(Result)
+})
+App.get('/' ,async (Req,Res)=>
+{
+    let Data=await Product.find()
+    Res.send(Data)
+})
+App.delete('/delete/:_id' , async(Req,Res)=>
+{
+    let Data=await Product.deleteOne(Req.params)
+    Res.send(Data)
 })
 
 App.listen(4500)
