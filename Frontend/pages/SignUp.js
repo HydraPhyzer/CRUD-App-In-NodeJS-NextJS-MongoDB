@@ -18,11 +18,13 @@ const SignUp = () => {
           'Content-Type':'application/json'
         }
       })
-      if(API.status==200)
+      .then(async(Res)=>
       {
-        localStorage.setItem("User" , JSON.stringify({Name:Name,Email:Email,Password:"....."}))
+        let Data=await Res.json();
+        localStorage.setItem("User" , JSON.stringify(Data.Result))
+        localStorage.setItem("Token" ,JSON.stringify(Data.Token))
         Router.push('/')
-      }
+      })
     }
     else
     {

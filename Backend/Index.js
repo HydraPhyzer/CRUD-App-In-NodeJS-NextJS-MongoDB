@@ -8,11 +8,16 @@ let Mongo=require('mongoose')
 App.use(Express.json());
 App.use(Cors())
 
+var jwt = require('jsonwebtoken');
+
 App.post("/register" , async (Req,Res)=>
 {
     let Data=new Model(Req.body);
     let Result=await Data.save();
-    Res.send(Result)
+    
+    var token = jwt.sign({Result} ,'IAMZUBI')
+
+    Res.send({Result:Result,Token:token})
 })
 App.post("/login" , async (Req,Res)=>
 {
