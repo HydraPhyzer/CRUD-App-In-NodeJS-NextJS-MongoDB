@@ -1,17 +1,36 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
+import Router from "next/router"; 
+
 export default function Home() {
   let [Products, setProducts] = useState([{}]);
 
   let GetProducts = async () => {
-    let API = await fetch("http://localhost:4500/");
-    setProducts(await API.json());
+    let API = await fetch("http://localhost:4500/",{headers: {
+      authorization: JSON.parse(localStorage.getItem("Token")),
+    }})
+    .then(async (Res) => {
+
+      let Res1 = await Res.json();
+      if (Res1.name == "JsonWebTokenError") {
+        Router.push("/SignUp");
+      } else {
+        {
+          setProducts(Res1);
+        }
+      }
+
+    });
   };
 
   let Delete = async (id) => {
     let Res = await fetch(`http://localhost:4500/delete/${id}`, {
       method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: JSON.parse(localStorage.getItem("Token")),
+      },
     });
     GetProducts();
   };

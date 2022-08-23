@@ -7,25 +7,42 @@ const Update = () => {
   let [PPrice, setPPrice] = useState();
 
   let GetProducts = async () => {
-    let API = await fetch(`http://localhost:4500/single/${Router.query.id}`);
-    let Res=await API.json()
-    setPPrice(Res.PPrice);
-    setPname(Res.PName);
+    let API = await fetch(`http://localhost:4500/single/${Router.query.id}` , {
+      method:'get',
+        headers: {
+          "Content-Type": "application/json",
+          authorization: JSON.parse(localStorage.getItem("Token")),
+        },
+    })
+    .then(async(Res)=>
+    {
+      let Res1=await Res.json()
+      setPPrice(Res1.PPrice);
+      setPname(Res1.PName);
+    });
   };
 
   let Update=async()=>
   {
     let API = await fetch(`http://localhost:4500/update/${Router.query.id}`,{
-      method:'put',
-        body:JSON.stringify({PName,PPrice}),
-        headers:{
-          'Content-Type':'application/json'
-        }
+      method: "put",
+        body: JSON.stringify({ PName, PPrice }),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: JSON.parse(localStorage.getItem("Token")),
+        },
     })
-    .then(()=>
+    .then(async(Res)=>
     {
-      Router.push('/')
-    });
+      let Res1 = await Res.json();
+      if (Res1.name == "JsonWebTokenError") {
+        Router.push("/SignUp");
+      } else {
+        {
+          Router.push("/")
+        }
+      }
+    })
   }
 
   useEffect(() => {GetProducts()}, []);

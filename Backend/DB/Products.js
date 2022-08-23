@@ -3,7 +3,7 @@ require('./Connect')
 
 let Schema=new Mongoose.Schema({
     PName:String,
-    PPrice:Number
+    PPrice:String
 })
 
 let Model=Mongoose.model('products' , Schema)

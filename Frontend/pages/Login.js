@@ -19,7 +19,9 @@ const Login = () => {
       })
       .then(async(Res)=>
       {
-        localStorage.setItem("User" , JSON.stringify(await Res.json()))
+        let Data=await Res.json();
+        localStorage.setItem("User" , JSON.stringify(Data.Result))
+        localStorage.setItem("Token" ,JSON.stringify(Data.Token))
         Router.push('/')
       })
     }
