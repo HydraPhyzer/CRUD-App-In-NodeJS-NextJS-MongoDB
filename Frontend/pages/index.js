@@ -5,6 +5,7 @@ import Router from "next/router";
 
 export default function Home() {
   let [Products, setProducts] = useState([{}]);
+  let [Person, setPerson] = useState();
 
   let GetProducts = async () => {
     let API = await fetch("http://localhost:4500/",{headers: {
@@ -34,7 +35,14 @@ export default function Home() {
     });
     GetProducts();
   };
+
+  let User=()=>
+  {
+    setPerson(JSON.parse(localStorage.getItem("User")));
+    console.log(Person)
+  }
   useEffect(() => {
+    User()
     GetProducts();
   }, []);
 
@@ -42,6 +50,7 @@ export default function Home() {
     <>
       <Header />
       
+      {Person?.Name?
       <div className="flex justify-center items-center min-h-[80vh] flex-col">
         {Products.length>0 ?
         <table>
@@ -84,6 +93,7 @@ export default function Home() {
           :
           <p>No Products to Display</p>}
       </div>
+      :""}
     </>
   );
 }

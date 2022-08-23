@@ -1,9 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Router } from "next/router";
 
 const Header = () => {
   let [State, setState] = useState(null);
+
+  let SignOut = () => {
+    localStorage.clear();
+    setState(null);
+  };
+
   useEffect(() => {
     setState(localStorage.getItem("User"));
   }, []);
@@ -29,22 +36,21 @@ const Header = () => {
             </Link>
           </>
         ) : (
-          <li>{(JSON.parse(State))?.Name}</li>
+          <li>{JSON.parse(State)?.Name}</li>
         )}
 
         {State ? (
           <>
             <li
               onClick={() => {
-                localStorage.clear();
-                setState(null);
+                SignOut();
               }}
             >
               Sign Out
             </li>
           </>
         ) : (
-          <li>{(JSON.parse(State))?.Name}</li>
+          <li>{JSON.parse(State)?.Name}</li>
         )}
       </div>
     </div>

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Header from "../Components/Header";
 import Router from "next/router";
 
 const AddProduct = () => {
   let [PName, setPname] = useState();
   let [PPrice, setPPrice] = useState();
+
   let Add = async () => {
     if (PName && PPrice) {
       let API = await fetch("http://localhost:4500/add-product", {
@@ -28,6 +29,14 @@ const AddProduct = () => {
       alert("Provide Complete Data");
     }
   };
+
+  useEffect(() => {
+    if(!localStorage.getItem('User'))
+    {
+      Router.push('/Login')
+    }
+  }, [])
+  
   return (
     <>
       <Header />

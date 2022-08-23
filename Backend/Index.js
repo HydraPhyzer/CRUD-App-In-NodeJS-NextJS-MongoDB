@@ -39,8 +39,10 @@ App.post("/register", async (Req, Res) => {
 App.post("/login" ,async (Req, Res) => {
   let Data = await Model.findOne(Req.body).select("-Password");
   var token = jwt.sign({ Data }, jwtkey);
-
+  if(Data)
   Res.send({ Result: Data, Token: token });
+  else
+  Res.send({Error:"No Accout Available"})
 });
 
 App.post("/add-product", Verify, async (Req, Res) => {
